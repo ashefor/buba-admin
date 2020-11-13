@@ -1,0 +1,28 @@
+<div class="topnav">
+    <nav class="topnav__container">
+      <div class="topnav__left">
+        <div class="topnav__item p-d-md-none" >
+          <div class="hamburger">
+            <div class="hamburger__bar hamburger__bar__top"></div>
+            <div class="hamburger__bar hamburger__bar__middle"></div>
+            <div class="hamburger__bar hamburger__bar__bottom"></div>
+          </div>
+        </div>
+        <div class="topnav__item">
+          <!-- <a href="" class="logo topnav__item__link topnav__item__logo">
+            <img src="assets/img/logo-red.png" alt="" srcset="">
+          </a> -->
+        </div>
+      </div>
+      <div class="topnav_right">
+        <ng-container *ngIf="(userDetails$ | async) as userDetails">
+            <div class="topnav__item">
+              <div class="user">
+                <span class="user__name">{{userDetails.first_name}}&nbsp;{{userDetails.last_name}}</span>
+              </div>
+            </div>
+          </ng-container>
+      </div>
+    </nav>
+  </div>
+  

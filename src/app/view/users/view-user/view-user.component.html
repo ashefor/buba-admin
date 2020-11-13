@@ -1,0 +1,265 @@
+<div class="user">
+  <div class="user__container">
+    <div class="pageheader">
+      <h1 class="pageheader__title text--capital">
+        View User
+      </h1>
+    </div>
+    <div class="pagebody user__body">
+      <ng-container *ngIf="userDetails">
+        <div class="p-grid">
+          <div class="user__body__item">
+            <p-panel header="User details" class="w-100" [toggleable]="true">
+              <div class="user__details__container">
+                <div class="user__details">
+                  <div class="p-mb-3">
+                    <button *ngIf="user.status === '0'"
+                      class="text--capital button--raised button button--wider button--danger p-mr-2"
+                      (click)="deactivateUser()">
+                      <i class="pi pi-ban p-mr-2"></i>
+                      <span>
+                        deactivate
+                      </span>
+                    </button>
+                    <button *ngIf="user.status === '1'"
+                      class="text--capital button--raised button button--wider button--success"
+                      (click)="activateUser()">
+                      <i class="pi pi-check p-mr-2"></i>
+                      <span>
+                        activate
+                      </span>
+                    </button>
+                    <button *ngIf="user.status === '0'"
+                      class="text--capital button--raised button button--wider button--info"
+                      (click)="showEditModalDialog()">
+                      <i class="pi pi-pencil p-mr-2"></i>
+                      <span>
+                        edit
+                      </span>
+                    </button>
+                  </div>
+                  <div class="user__details__row">
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">first name</span>
+                      <span class="user__details__item__text user__details__item__subtitle">{{user.firstname | titlecase}}</span>
+                    </div>
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">first name</span>
+                      <span class="user__details__item__text user__details__item__subtitle">{{user.lastname | titlecase}}</span>
+                    </div>
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">email</span>
+                      <span class="user__details__item__text user__details__item__subtitle">{{user.email}}</span>
+                    </div>
+                  </div>
+                  <div class="user__details__row">
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">phone number</span>
+                      <span class="user__details__item__text user__details__item__subtitle">{{user.phone_number}}</span>
+                    </div>
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">referral code</span>
+                      <span
+                        class="user__details__item__text user__details__item__subtitle">{{user.referral_code ? user.referral_code : 'None'}}</span>
+                    </div>
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">referral type</span>
+                      <span
+                        class="user__details__item__text user__details__item__subtitle">{{user.referral_type}}</span>
+                    </div>
+                  </div>
+                  <div class="user__details__row">
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">balance</span>
+                      <span
+                        class="user__details__item__text user__details__item__subtitle">{{user.balance  | currency:'₦'}}</span>
+                    </div>
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">winning balance</span>
+                      <span
+                        class="user__details__item__text user__details__item__subtitle">{{user.winnings_balance  | currency:'₦'}}</span>
+                    </div>
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">status</span>
+                      <span class="user__details__item__text user__details__item__subtitle">
+
+                        <span class="p-tag"
+                          [ngClass]="{'p-tag-danger': user.status === '1', 'p-tag-success': user.status === '0'}">{{user.status === '1' ? 'inactive' : 'active'}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+
+          <div class="user__body__item">
+            <p-panel header="Bid Details" class="w-100" [toggleable]="true">
+              <div class="bid__details__container">
+                <div class="bid__details">
+
+                  <div class="table__container">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">S/No</th>
+                          <th>Date Funded</th>
+                          <th>Type</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngIf="bidsHistory && bidsHistory.length; else noBids">
+                          <tr *ngFor="let fund of bidsHistory; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{fund.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
+                            <td>{{fund.type}}</td>
+                            <td>{{fund.amount | currency:'₦'}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-template #noBids>
+                          <tr>
+                           <td colspan="12">
+                            <p class="p-p-2 text--center text--capital">
+                              no bids yet
+                             </p>
+                           </td>
+                          </tr>
+                        </ng-template>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+
+          <div class="user__body__item">
+            <p-panel header="Funding Details" class="w-100" [toggleable]="true">
+              <div class="funding__details__container">
+                <div class="funding__details">
+                  <div class="p-mb-3">
+                    <button (click)="showFundModalDialog()"
+                      class="text--capital button--raised button button--wider button--success p-mr-2">
+                      <i class="pi pi-plus p-mr-2"></i>
+                      <span>
+                        add fund
+                      </span>
+                    </button>
+                  </div>
+                  <div class="table__container">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">S/No</th>
+                          <th>Date Funded</th>
+                          <th>Type</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngIf="fundingHistory && fundingHistory.length; else noFunding">
+                          <tr *ngFor="let fund of fundingHistory; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{fund.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
+                            <td>{{fund.type}}</td>
+                            <td>{{fund.amount | currency:'₦'}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-template #noFunding>
+                          <tr>
+                           <td colspan="12">
+                            <p class="p-p-2 text--center text--capital">
+                              no funding yet
+                             </p>
+                           </td>
+                          </tr>
+                        </ng-template>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+
+          <div class="user__body__item">
+            <p-panel header="Withdrawal Details" class="w-100" [toggleable]="true">
+              <div class="bid__details__container">
+                <div class="bid__details">
+
+                </div>
+              </div>
+            </p-panel>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Fund User Account" [(visible)]="fundModal" [modal]="true" [style]="{width: '25%'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" (onHide)="closeModal()">
+  <form [formGroup]="fundForm">
+    <div class="p-field">
+      <label for="amount" class="text--regular text--bold">Amount</label>
+      <p-inputNumber formControlName="amount" inputStyleClass="text--regular" inputId="amount">
+      </p-inputNumber>
+      <ng-container *ngIf="(fundformControls.amount.dirty || fundformControls.amount.touched) && fundformControls.amount.errors">
+        <span *ngIf="fundformControls.amount.errors.required" id="amount-help"
+          class="p-invalid p-mb-2 p-d-block p-px-2">Please enter amount</span>
+      </ng-container>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" (click)="processFund(fundForm.value)"
+      [label]="isFunding ? 'Funding' : 'Fund'" [disabled]="isFunding"
+      class="p-button-raised p-button-secondary p-button-lg"></button>
+  </ng-template>
+</p-dialog>
+
+
+
+<p-dialog header="Edit User" [(visible)]="editModal" [modal]="true" [style]="{width: '30vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" (onHide)="closeModal()">
+  <form [formGroup]="editForm">
+    <div class="p-fluid">
+      <div class="p-field">
+          <label for="firstname" class="text--regular text--bold">First Name</label>
+          <input id="firstname" class="text--regular" type="text" pInputText formControlName="firstname"> 
+          <ng-container *ngIf="(editformControls.firstname.dirty || editformControls.firstname.touched) && editformControls.firstname.errors">
+            <span *ngIf="editformControls.firstname.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Please enter first name</span>
+          </ng-container>
+      </div>
+      <div class="p-field">
+          <label for="lastname" class="text--regular text--bold">Last Name</label>
+          <input id="lastname" type="text" class="text--regular" pInputText formControlName="lastname"> 
+          <ng-container *ngIf="(editformControls.lastname.dirty || editformControls.lastname.touched) && editformControls.lastname.errors">
+            <span *ngIf="editformControls.lastname.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Please enter last name</span>
+          </ng-container>
+      </div>
+  </div>
+  <div class="p-fluid">
+    <div class="p-field">
+        <label for="phonenumber" class="text--regular text--bold">Phone Number</label>
+        <input id="phonenumber" type="tel" class="text--regular" pInputText formControlName="phone_number"> 
+        <ng-container *ngIf="(editformControls.phone_number.dirty || editformControls.phone_number.touched) && editformControls.phone_number.errors">
+          <span *ngIf="editformControls.phone_number.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Please enter phone number</span>
+        </ng-container>
+    </div>
+    <div class="p-field">
+        <label for="lastname" class="text--regular text--bold">Email</label>
+        <input id="lastname" type="email" class="text--regular" pInputText formControlName="email"> 
+        <ng-container *ngIf="(editformControls.email.dirty || editformControls.email.touched) && editformControls.email.errors">
+          <span *ngIf="editformControls.email.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Please enter email</span>
+          <span *ngIf="editformControls.email.errors.email" class="p-invalid p-mb-2 p-d-block p-px-2">Please enter valid email</span>
+        </ng-container>
+    </div>
+</div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" (click)="processEdit(editForm.value)"
+      [label]="isEditting ? 'Editting' : 'Edit'" [disabled]="isEditting"
+      class="p-button-raised p-button-secondary p-button-lg"></button>
+  </ng-template>
+</p-dialog>

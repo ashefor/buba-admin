@@ -1,0 +1,58 @@
+<div class="sidenav">
+  <a class="sidenav__logo">
+    <img src="assets/img/buba.png" class="sidenav__logo__img" alt="buba" srcset="">
+    <!-- <span class="sidenav__logo__text">buba</span> -->
+  </a>
+  <div class="sidenav__container">
+    <a class="accordion sidenav__item" [ngClass]="{'active': bidsChild1RLA.isActive || bidsChild2RLA.isActive}">
+        <i class="pi pi-ticket sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">bids</span>
+        <i class="pi pi-angle-right iconRight"></i>
+      </a>
+      <div class="sidenav__mobilenav">
+        <a class="sidenav__item" [routerLink]="['/bids/0']"  routerLinkActive="active" #bidsChild1RLA="routerLinkActive">
+          <i class="pi pi-users sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">closed</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/bids/1']"  routerLinkActive="active" #bidsChild2RLA="routerLinkActive">
+          <i class="pi pi-users sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">open</span>
+        </a>
+      </div>
+    <a class="sidenav__item" [routerLink]="['/funding']" routerLinkActive="active">
+      <i class="pi pi-ticket sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">funding</span>
+    </a>
+
+    <a class="sidenav__item" [routerLink]="['/withdrawals']" routerLinkActive="active">
+      <i class="pi pi-ticket sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">withdrawals</span>
+    </a>
+
+    <a class="sidenav__item" [routerLink]="['/users']" routerLinkActive="active">
+        <i class="pi pi-users sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">users</span>
+      </a>
+
+    <a class="accordion sidenav__item"   [ngClass]="{'active': settingsChild1RLA.isActive}">
+      <i class="pi pi-cog sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">settings</span>
+      <i class="pi pi-angle-right iconRight"></i>
+    </a>
+    <div class="sidenav__mobilenav">
+        <a class="sidenav__item"  routerLinkActive="active" #settingsChild1RLA="routerLinkActive">
+          <i class="pi pi-users sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">Add User</span>
+        </a>
+        <!-- <a class="sidenav__item"  [routerLink]="['/users/0']" routerLinkActive="active" #withdrawals2RLA="routerLinkActive">
+        <i class="pi pi-users sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">inactive</span>
+      </a> -->
+      </div>
+
+    <div class="sidenav__item logout" (click)="logOut()">
+      <i class="pi pi-home sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">log out</span>
+    </div>
+  </div>
+</div>

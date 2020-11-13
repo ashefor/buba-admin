@@ -1,0 +1,55 @@
+@import '../../../../styles/abstract/variables';
+
+.user {
+  .p-tag {
+    font-size: 1rem;
+  }
+
+  &__body {
+    &__item {
+      width: 100%;
+      margin-bottom: 2rem;
+
+      &:last-of-type {
+        margin-bottom: 0
+      }
+    }
+  }
+
+  &__details {
+
+    &__row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid $color-ash;
+      padding: .5rem;
+      margin-bottom: .5rem;
+
+      &:last-of-type {
+        border: none;
+        margin-bottom: 0
+      }
+    }
+
+    &__item {
+      width: calc(100% / 3);
+      padding: .5rem;
+      border-right: 1px solid $color-ash;
+
+      &:last-of-type {
+        border: none;
+      }
+
+      &__text {
+        display: block;
+        font-size: $font-size-regular;
+        // text-transform: capitalize;
+      }
+
+      &__title {
+        font-weight: bold;
+        margin-bottom: .5rem;
+      }
+    }
+  }
+}

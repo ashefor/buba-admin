@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "buba-admin": {
@@ -28,7 +28,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/main.scss",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -42,9 +47,9 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -123,6 +128,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "buba-admin"
+    }
+  },
+  "defaultProject": "buba-admin",
+  "cli": {
+    "analytics": "ca367f47-d21d-45b1-95fd-e5bc876e95a8"
+  }
 }

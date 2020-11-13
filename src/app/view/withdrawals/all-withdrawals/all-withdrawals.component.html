@@ -1,0 +1,57 @@
+<div class="withdrawals">
+    <div class="withdrawals__container">
+      <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+          withdrawals
+        </h1>
+      </div>
+      <div class="pagebody withdrawals__body">
+        <div class="p-mb-3 p-d-flex p-jc-between">
+            <p-dropdown [options]="pageSizes" (ngModelChange)="changePageSize($event)" [(ngModel)]="pageSize"
+              placeholder="pageSize" optionLabel="size"></p-dropdown>
+    
+            <input type="text" placeholder="Search" #searchInput pInputText>
+          </div>
+        <ng-container>
+              <div class="p-grid">
+                <div class="p-col">
+                    <div class="table__container">
+                        <table class="table table__bordered">
+                          <thead class="thead__dark">
+                            <tr>
+                              <th scope="col">S/No</th>
+                              <th>Date Created</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-container *ngIf="withdrawalHistory && withdrawalHistory.length">
+                              <tr *ngFor="let item of withdrawalHistory; let i = index">
+                                  <td>{{i + 1}}</td>
+                                  <td>{{item.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
+                                  <td>{{item.firstname}} {{item.lastname}}</td>
+                                  <td>{{item.email}}</td>
+                                  <td>{{item.amount | currency:'₦'}}</td>
+                                </tr>
+                            </ng-container>
+                           <ng-container *ngIf="withdrawalHistory && !withdrawalHistory.length">
+                            <tr>
+                                <td colspan="5">
+                                 <p class="p-p-4 text--center text--capital">
+                                   no withdrawals yet
+                                  </p>
+                                </td>
+                               </tr>
+                           </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                </div>
+              </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  

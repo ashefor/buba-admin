@@ -1,0 +1,56 @@
+<div class="funding">
+  <div class="funding__container">
+    <div class="pageheader">
+      <h1 class="pageheader__title text--capital">
+        funding
+      </h1>
+    </div>
+    <div class="pagebody funding__body">
+      <div class="p-mb-3 p-d-flex p-jc-between">
+        <p-dropdown [options]="pageSizes" (ngModelChange)="changePageSize($event)" [(ngModel)]="pageSize"
+          placeholder="pageSize" optionLabel="size"></p-dropdown>
+
+        <input type="text" placeholder="Search" #searchInput pInputText>
+      </div>
+      <ng-container>
+        <div class="p-grid">
+          <div class="p-col">
+            <div class="table__container">
+              <table class="table table__bordered">
+                <thead class="thead__dark">
+                  <tr>
+                    <th scope="col">S/No</th>
+                    <th>Date Funded</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="fundingHistory && fundingHistory.length">
+                    <tr *ngFor="let fund of fundingHistory; let i = index">
+                      <td>{{i + 1}}</td>
+                      <td>{{fund.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
+                      <td>{{fund.firstname}} {{fund.lastname}}</td>
+                      <td>{{fund.email}}</td>
+                      <td>{{fund.amount | currency:'₦'}}</td>
+                    </tr>
+                  </ng-container>
+                  <ng-container *ngIf="fundingHistory && !fundingHistory.length">
+                    <tr>
+                      <td colspan="5">
+                        <p class="p-p-4 text--center text--capital">
+                          no funding yet
+                        </p>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
