@@ -2,14 +2,14 @@
   <div class="user__container">
     <div class="pageheader">
       <h1 class="pageheader__title text--capital">
-        View User
+        View customer
       </h1>
     </div>
     <div class="pagebody user__body">
       <ng-container *ngIf="userDetails">
         <div class="p-grid">
           <div class="user__body__item">
-            <p-panel header="User details" class="w-100" [toggleable]="true">
+            <p-panel header="Customer details" class="w-100" [toggleable]="true">
               <div class="user__details__container">
                 <div class="user__details">
                   <div class="p-mb-3">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="user__details__item">
                       <span class="user__details__item__text user__details__item__title">email</span>
-                      <span class="user__details__item__text user__details__item__subtitle">{{user.email}}</span>
+                      <span class="user__details__item__text user__details__item__email">{{user.email}}</span>
                     </div>
                   </div>
                   <div class="user__details__row">
@@ -183,7 +183,7 @@
             </p-panel>
           </div>
 
-          <div class="user__body__item">
+          <!-- <div class="user__body__item">
             <p-panel header="Withdrawal Details" class="w-100" [toggleable]="true">
               <div class="bid__details__container">
                 <div class="bid__details">
@@ -191,7 +191,7 @@
                 </div>
               </div>
             </p-panel>
-          </div>
+          </div> -->
         </div>
       </ng-container>
     </div>

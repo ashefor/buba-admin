@@ -19,9 +19,9 @@
 html {
   font-size: 62.5%;
 
-  @media only screen and (max-width: 600px) {
-    font-size: 50%;
-  }
+  // @media only screen and (max-width: 600px) {
+  //   font-size: 50%;
+  // }
 
 }
 
@@ -29,10 +29,12 @@ body {
   box-sizing: border-box;
   // font-family: 'Baloo 2', cursive;
   // font-family: 'Poppins', sans-serif;
-  // font-family: 'Sen', sans-serif;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Sen', sans-serif;
+  // font-family: 'Source Sans Pro', sans-serif;
+  // font-family: 'Quicksand', sans-serif;
   font-style: normal;
   line-height: 1.2;
+  font-size: 14px;
 }
 
 a {
@@ -59,7 +61,7 @@ p {
 
 input,
 select {
-
+  font-size: 16px;
   font-family: inherit;
   border-image: none;
   outline: none;

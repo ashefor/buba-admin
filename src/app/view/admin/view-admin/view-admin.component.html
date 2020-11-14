@@ -1,0 +1,266 @@
+<div class="users">
+    <div class="users__container">
+      <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+          new system user
+        </h1>
+      </div>
+      <div class="pagebody users__body">
+        <ng-container *ngIf="user">
+            <div class="card">
+                <div class="card__body">
+                  <div class="text--right p-mb-4">
+                    <button class="button button--wider button--info button--raised text--capital">
+                      <i class="pi pi-pencil text--regular p-mr-2"></i>
+                      <span>Save changes</span>
+                    </button>
+                  </div>
+                  <div class="p-fluid p-formgrid p-grid p-md-mb-2">
+                    <div class="p-field p-col-12 p-md-6">
+                      <label class="text--regular text--bold text--capital">first name</label>
+                      <input type="text"  [(ngModel)]="user.first_name" class="text--regular" pInputText>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                      <label class="text--regular text--bold text--capital">last name</label>
+                      <input type="text" class="text--regular"  [(ngModel)]="user.last_name" pInputText>
+                    </div>
+                  </div>
+                  <div class="p-fluid p-formgrid p-grid p-md-mb-2">
+                    <div class="p-field p-col-12 p-md-6">
+                        <label class="text--regular text--bold text--capital">email</label>
+                        <input type="email" class="text--regular"  [(ngModel)]="user.email" pInputText>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                      <label class="text--regular text--bold">department</label>
+                      <p-dropdown placeholder="Select department" styleClass="departments" [(ngModel)]="user.department" [options]="departments"
+                        optionLabel="name"></p-dropdown>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="users__permissions__container">
+                <div class="card">
+                    <div class="card__body">
+                        <h4 class="users__permissions__title text--capital">persmissions</h4>
+                <div class="user__permissions">
+                    <div class="pfluid p-grid">
+                        <div class="p-col-12">
+                          <p-tabView>
+                            <p-tabPanel header="Customers" headerStyleClass="text--regular">
+                              <table class="table">
+                                <thead class="thead__dark">
+                                  <tr>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <p>List all Customers</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('users/list')" (onChange)="setPermission($event,'users/list')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>List One Customer</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('users/one')" (onChange)="setPermission($event,'users/one')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <p>Edit Customer</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('users/edit')" (onChange)="setPermission($event,'users/edit')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>Deactivate Customer</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('users/deactivate')" (onChange)="setPermission($event,'users/deactivate')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <p>Fund Customer</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('users/fund/add')" (onChange)="setPermission($event,'users/fund/add')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </p-tabPanel>
+                            <p-tabPanel header="System Users" headerStyleClass="text--regular">
+                              <table class="table">
+                                <thead class="thead__dark">
+                                  <tr>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <p>List all Admins</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/account/list')" (onChange)="setPermission($event,'admin/account/list')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>View One Admin</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/account/one')" (onChange)="setPermission($event,'admin/account/one')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <p>Edit Admin User</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/account/edit')" (onChange)="setPermission($event,'admin/account/edit')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>Create Admin User</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/account/create')" (onChange)="setPermission($event,'admin/account/create')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </p-tabPanel>
+                            <p-tabPanel header="Funding" headerStyleClass="text--regular">
+                              <table class="table">
+                                <thead class="thead__dark">
+                                  <tr>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <p>View all Transactions</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/transactions/list')" (onChange)="setPermission($event,'admin/transactions/list')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </p-tabPanel>
+                            <p-tabPanel header="Withdrawal" headerStyleClass="text--regular">
+                              <table class="table">
+                                <thead class="thead__dark">
+                                  <tr>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <p>View all Withdrawals</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/withdrawal/list')" (onChange)="setPermission($event,'admin/withdrawal/list')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </p-tabPanel>
+                            <p-tabPanel header="Bids" headerStyleClass="text--regular">
+                              <table class="table">
+                                <thead class="thead__dark">
+                                  <tr>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <p>View all Bids History</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/bid/history')" (onChange)="setPermission($event,'admin/bid/history')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>View Bid Submission</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('admin/bid/submission')" (onChange)="setPermission($event,'admin/bid/submission')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </p-tabPanel>
+                            <p-tabPanel header="Report" headerStyleClass="text--regular">
+                              <table class="table">
+                                <thead class="thead__dark">
+                                  <tr>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Permissions</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <p>View User Reports</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('report/users')" (onChange)="setPermission($event,'report/users')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>View User Activity Reports</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('report/users/activity')" (onChange)="setPermission($event,'report/users/activity')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <p>View Funding Reports</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('report/funding')" (onChange)="setPermission($event,'report/funding')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>View User Activity Reports</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('report/users/activity')" (onChange)="setPermission($event,'report/users/activity')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </p-tabPanel>
+                          </p-tabView>
+                        </div>
+                      </div>
+                </div>
+                    </div>
+                </div>
+              </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  

@@ -11,14 +11,18 @@ import { TokenInterceptor } from './core/interceptors/token-interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     LoadingBarModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        preventDuplicates: true
+      }
+    ),
     AppRoutingModule
   ],
   providers: [

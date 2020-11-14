@@ -43,7 +43,11 @@
       &__text {
         display: block;
         font-size: $font-size-regular;
-        // text-transform: capitalize;
+        text-transform: capitalize;
+      }
+
+      &__email{
+        text-transform: none;
       }
 
       &__title {

@@ -37,12 +37,12 @@ export class OneBidComponent implements OnInit, OnDestroy {
       console.log(data);
       this.bidDetails = data;
       // this.user = data.user;
-    },  (error: HttpErrorResponse) => {
+    }, (error: HttpErrorResponse) => {
       console.log(error);
       this.loadingBar.stop();
-      if (error.status >= 400 && error.status <= 415 && error.status !== 401) {
+      if (error.status !== 401 && (error.status >= 400 && error.status <= 415)) {
         this.toastr.error(error.error.message, 'Error');
-      } else {
+      } else if (error.status > 415) {
         this.toastr.error('An error has occured. Please try again later', 'Error');
       }
     });

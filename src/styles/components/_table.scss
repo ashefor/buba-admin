@@ -16,6 +16,11 @@ table {
 
   &__bordered {
     border: 1px solid $color-ash;
+
+    td,
+    th {
+      border-top: 1px solid $color-ash;
+    }
   }
 
   &__container {
@@ -53,6 +58,5 @@ table {
   th {
     padding: 1rem;
     vertical-align: top;
-    border-top: 1px solid $color-ash;
   }
 }

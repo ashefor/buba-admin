@@ -4,57 +4,45 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { pageSizes } from '../../shared/models/page-sizes';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { BidsService } from '../services/bids.service';
-import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AdminService } from '../services/admin.service';
 
 @Component({
-  selector: 'app-all-bids',
-  templateUrl: './all-bids.component.html',
-  styleUrls: ['./all-bids.component.scss']
+  selector: 'app-all-admin',
+  templateUrl: './all-admin.component.html',
+  styleUrls: ['./all-admin.component.scss']
 })
-export class AllBidsComponent implements OnInit, OnDestroy {
+export class AllAdminComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-  bidHistory: any[];
+  allSystemUsers: any[];
   pageNumber = 1;
   pageSize = { size: '10', value: '10' };
   pageSizes = pageSizes;
-  status: any;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private service: BidsService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
+  constructor(private service: AdminService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((param: Params) => {
-      this.status = param.id;
-      this.bidHistory = null;
-      this.pageSize = { size: '10', value: '10' };
-      this.fetchAllBids();
-    });
     this.httpSearch();
+    this.fetchAllSystemUsers();
   }
 
   ngOnDestroy() {
     this.loadingBar.stop();
   }
-  fetchAllBids(searchText = '') {
+
+  fetchAllSystemUsers(searchText = '') {
     const pageDetails = {
       page_size: this.pageSize.value,
       search_text: searchText,
-      status: this.status,
       page_number: this.pageNumber
     };
     this.loadingBar.start();
     console.log(pageDetails);
-    this.service.fetchBidHistory(pageDetails).subscribe((data: any) => {
+    this.service.fetchSystemUsers(pageDetails).subscribe((data: any) => {
       this.loadingBar.stop();
       console.log(data);
-      this.bidHistory = data.bids_history;
-      console.log(this.bidHistory);
-      // if (data.status === 'success') {
-      //   this.usersHistory = data.users;
-      //   console.log(this.usersHistory);
-      // }
+      this.allSystemUsers = data.admin_users;
+      console.log(this.allSystemUsers);
     },  (error: HttpErrorResponse) => {
       console.log(error);
       this.loadingBar.stop();
@@ -73,13 +61,12 @@ export class AllBidsComponent implements OnInit, OnDestroy {
       map((e: any) => e.target.value),
       debounceTime(500),
       distinctUntilChanged()).subscribe((text: any) => {
-        this.fetchAllBids(text);
+        this.fetchAllSystemUsers(text);
       });
   }
 
   changePageSize(event) {
     this.pageSize = event;
-    this.fetchAllBids();
+    this.fetchAllSystemUsers();
   }
-
 }

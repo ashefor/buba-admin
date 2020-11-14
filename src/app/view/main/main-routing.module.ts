@@ -9,11 +9,11 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'users/one/:id',
+        path: 'customers/one/:id',
         loadChildren: () => import('../users/view-user/view-user.module').then(m => m.ViewUserModule)
       },
       {
-        path: 'users',
+        path: 'customers',
         loadChildren: () => import('../users/users/users.module').then(m => m.UsersModule)
       },
       {
@@ -35,6 +35,29 @@ const routes: Routes = [
       {
         path: 'bids/view/:id',
         loadChildren: () => import('../bids/one-bid/one-bid.module').then(m => m.OneBidModule)
+      },
+      {
+        path: 'system-users',
+        loadChildren: () => import('../admin/all-admin/all-admin.module').then(m => m.AllAdminModule)
+      },
+      {
+        path: 'system-users/create',
+        loadChildren: () => import('../admin/new-admin/new-admin.module').then(m => m.NewAdminModule)
+      },
+      {
+        path: 'system-users/view/:id',
+        loadChildren: () => import('../admin/view-admin/view-admin.module').then(m => m.ViewAdminModule)
+      },
+      {
+        path: 'report/users',
+        loadChildren: () => import('../reports/users-report/users-report.module').then(m => m.UsersReportModule)
+      }, {
+        path: 'report/activity',
+        loadChildren: () => import('../reports/activity-report/activity-report.module').then(m => m.ActivityReportModule)
+      },
+      {
+        path: 'report/funding',
+        loadChildren: () => import('../reports/funding-report/funding-report.module').then(m => m.FundingReportModule)
       }
     ]
   }

@@ -1,0 +1,17 @@
+@import '../../../../styles/abstract/variables';
+
+.users {
+
+  &__permissions {
+    margin-top: 1rem !important;
+
+    &__container {
+      margin-top: 2rem;
+    }
+
+    &__title {
+      line-height: 1.2;
+      font-size: $font-size-large;
+    }
+  }
+}
