@@ -19,6 +19,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   pageNumber = 1;
   pageSize = { size: '10', value: '10' };
   pageSizes = pageSizes;
+  searchText = '';
+  errorMsg = 'no users yet';
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private service: UsersService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
@@ -67,6 +69,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       map((e: any) => e.target.value),
       debounceTime(500),
       distinctUntilChanged()).subscribe((text: any) => {
+        this.searchText = text;
         this.fetchUsers(text);
       });
   }
@@ -74,5 +77,46 @@ export class UsersComponent implements OnInit, OnDestroy {
   changePageSize(event) {
     this.pageSize = event;
     this.fetchUsers();
+  }
+
+  goToAnotherPage() {
+    const pageDetails = {
+      page_size: this.pageSize.value,
+      search_text: this.searchText,
+      page_number: this.pageNumber
+    };
+    this.loadingBar.start();
+    console.log(pageDetails);
+    this.service.fetchUsers(pageDetails).subscribe((data: any) => {
+      this.loadingBar.stop();
+      console.log(data);
+      this.usersHistory = data.users;
+      console.log(this.usersHistory);
+      if (!this.usersHistory.length) {
+        this.errorMsg = 'no more results';
+      }
+    }, (error: HttpErrorResponse) => {
+      console.log(error);
+      this.loadingBar.stop();
+      if (error.status !== 401 && (error.status >= 400 && error.status <= 415)) {
+        this.toastr.error(error.error.message, 'Error');
+      } else if (error.status > 415) {
+        this.toastr.error('An error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  goPrevious() {
+    if (this.pageNumber === 1) {
+      return;
+    } else {
+      this.pageNumber -= 1;
+      this.goToAnotherPage();
+    }
+  }
+
+  goNext() {
+    this.pageNumber += 1;
+    this.goToAnotherPage();
   }
 }

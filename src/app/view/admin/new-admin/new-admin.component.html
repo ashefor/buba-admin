@@ -84,18 +84,24 @@
                               <p-inputSwitch (onChange)="setPermission($event,'users/edit')"></p-inputSwitch>
                             </td>
                             <td>
-                              <p>Deactivate Customer</p>
-                            </td>
-                            <td>
-                              <p-inputSwitch (onChange)="setPermission($event,'users/deactivate')"></p-inputSwitch>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
                               <p>Fund Customer</p>
                             </td>
                             <td>
                               <p-inputSwitch (onChange)="setPermission($event,'users/fund/add')"></p-inputSwitch>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p>Activate Customer</p>
+                            </td>
+                            <td>
+                              <p-inputSwitch (onChange)="setPermission($event,'users/activate')"></p-inputSwitch>
+                            </td>
+                            <td>
+                              <p>Deactivate Customer</p>
+                            </td>
+                            <td>
+                              <p-inputSwitch (onChange)="setPermission($event,'users/deactivate')"></p-inputSwitch>
                             </td>
                           </tr>
                         </tbody>
@@ -210,6 +216,34 @@
                             </td>
                             <td>
                               <p-inputSwitch (onChange)="setPermission($event,'admin/bid/submission')"></p-inputSwitch>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p>Upload Bids</p>
+                            </td>
+                            <td>
+                              <p-inputSwitch (onChange)="setPermission($event,'bids/upload')"></p-inputSwitch>
+                            </td>
+                            <td>
+                              <p>Bids Listing</p>
+                            </td>
+                            <td>
+                              <p-inputSwitch (onChange)="setPermission($event,'bid_list/list')"></p-inputSwitch>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p>Delete Bids List</p>
+                            </td>
+                            <td>
+                              <p-inputSwitch (onChange)="setPermission($event,'bid_list/delete')"></p-inputSwitch>
+                            </td>
+                            <td>
+                              <p>Edit Bids list</p>
+                            </td>
+                            <td>
+                              <p-inputSwitch (onChange)="setPermission($event,'bid_list/edit')"></p-inputSwitch>
                             </td>
                           </tr>
                         </tbody>

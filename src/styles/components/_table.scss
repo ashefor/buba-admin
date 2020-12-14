@@ -34,7 +34,8 @@ table {
     &__dark {
       th {
         color: $color-white;
-        background-color: $color-deep-black;
+        // background-color: $color-deep-black;
+        background-color: $color-primary;
         border-color: $color-black;
       }
     }

@@ -2,7 +2,7 @@
     <div class="users__container">
       <div class="pageheader">
         <h1 class="pageheader__title text--capital">
-          new system user
+          system user
         </h1>
       </div>
       <div class="pagebody users__body">
@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card__body">
                   <div class="text--right p-mb-4">
-                    <button class="button button--wider button--info button--raised text--capital">
+                    <button [disabled]="isEditting" class="button button--wider button--info button--raised text--capital" (click)="editUser()">
                       <i class="pi pi-pencil text--regular p-mr-2"></i>
                       <span>Save changes</span>
                     </button>
@@ -79,18 +79,24 @@
                                       <p-inputSwitch [ngModel]="getStatus('users/edit')" (onChange)="setPermission($event,'users/edit')"></p-inputSwitch>
                                     </td>
                                     <td>
-                                      <p>Deactivate Customer</p>
-                                    </td>
-                                    <td>
-                                      <p-inputSwitch [ngModel]="getStatus('users/deactivate')" (onChange)="setPermission($event,'users/deactivate')"></p-inputSwitch>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
                                       <p>Fund Customer</p>
                                     </td>
                                     <td>
                                       <p-inputSwitch [ngModel]="getStatus('users/fund/add')" (onChange)="setPermission($event,'users/fund/add')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <p>Activate Customer</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('users/deactivate')" (onChange)="setPermission($event,'users/activate')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>Deactivate Customer</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('users/deactivate')" (onChange)="setPermission($event,'users/deactivate')"></p-inputSwitch>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -205,6 +211,34 @@
                                     </td>
                                     <td>
                                       <p-inputSwitch [ngModel]="getStatus('admin/bid/submission')" (onChange)="setPermission($event,'admin/bid/submission')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <p>Upload Bids</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('bids/upload')" (onChange)="setPermission($event,'bids/upload')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>Bids Listing</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('bid_list/list')" (onChange)="setPermission($event,'bid_list/list')"></p-inputSwitch>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <p>Delete Bids List</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('bid_list/delete')" (onChange)="setPermission($event,'bid_list/delete')"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                      <p>Edit Bids list</p>
+                                    </td>
+                                    <td>
+                                      <p-inputSwitch [ngModel]="getStatus('bid_list/edit')" (onChange)="setPermission($event,'bid_list/edit')"></p-inputSwitch>
                                     </td>
                                   </tr>
                                 </tbody>

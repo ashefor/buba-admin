@@ -37,7 +37,9 @@
     display: flex;
     align-items: center;
     font-size: $font-size-medium;
-    color: $color-ash;
+    // color: $color-ash;
+    // color: $color-white;
+    color: $color-grey;
     font-weight: bold;
 
     &__icon {
@@ -56,7 +58,8 @@
     color: $color-white;
 
       @media all and (min-width: 768px) {
-        background-color: $color-deep-black;
+        // background-color: $color-deep-black;
+        background-color: $color-primary;
         // box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
         border-radius: .5rem;
       }

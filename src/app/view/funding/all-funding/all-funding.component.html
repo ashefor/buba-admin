@@ -12,45 +12,59 @@
 
         <input type="text" placeholder="Search" #searchInput pInputText>
       </div>
-      <ng-container>
-        <div class="p-grid">
-          <div class="p-col">
-            <div class="table__container">
-              <table class="table table__bordered">
-                <thead class="thead__dark">
-                  <tr>
-                    <th scope="col">S/No</th>
-                    <th>Date Funded</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngIf="fundingHistory && fundingHistory.length">
-                    <tr *ngFor="let fund of fundingHistory; let i = index">
-                      <td>{{i + 1}}</td>
-                      <td>{{fund.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
-                      <td>{{fund.firstname}} {{fund.lastname}}</td>
-                      <td>{{fund.email}}</td>
-                      <td>{{fund.amount | currency:'₦'}}</td>
-                    </tr>
-                  </ng-container>
-                  <ng-container *ngIf="fundingHistory && !fundingHistory.length">
-                    <tr>
-                      <td colspan="5">
-                        <p class="p-p-4 text--center text--capital">
-                          no funding yet
-                        </p>
-                      </td>
-                    </tr>
-                  </ng-container>
-                </tbody>
-              </table>
+      <div class="card">
+        <div class="card__body">
+          <ng-container>
+            <div class="p-grid">
+              <div class="p-col">
+                <div class="table__container">
+                  <table class="table table__bordered">
+                    <thead class="thead__dark">
+                      <tr>
+                        <th scope="col">S/No</th>
+                        <th>Date Funded</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="fundingHistory && fundingHistory.length">
+                        <tr *ngFor="let fund of fundingHistory; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{fund.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
+                          <td>{{fund.firstname}} {{fund.lastname}}</td>
+                          <td>{{fund.email}}</td>
+                          <td>{{fund.amount | currency:'₦'}}</td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="fundingHistory && !fundingHistory.length">
+                        <tr>
+                          <td colspan="5">
+                            <p class="p-p-4 text--center text--capital">
+                              {{errorMsg}}
+                            </p>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+                <ng-container >
+                  <div class="p-flex text--right">
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
+                      previous
+                    </button>
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goNext()">
+                      next
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
             </div>
-          </div>
+          </ng-container>
         </div>
-      </ng-container>
+      </div>
     </div>
   </div>
 </div>

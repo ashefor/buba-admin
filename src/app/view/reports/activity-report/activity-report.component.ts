@@ -52,4 +52,8 @@ export class ActivityReportComponent implements OnInit, OnDestroy {
     });
 
   }
+
+  goToAnotherPage() {
+    
+  }
 }

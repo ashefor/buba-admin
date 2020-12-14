@@ -17,7 +17,7 @@
             </div>
             <div class="p-field p-col-12 p-md-3 p-as-end">
                 
-                <button [disabled]="isFetching" class="button button--info button--raised button--wider text--capital" (click)="getReport()">Get report</button> 
+                <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital" (click)="getReport()">Get report</button> 
             </div>
         </div>
           <ng-container>
@@ -28,7 +28,6 @@
                     <thead class="thead__dark">
                       <tr>
                         <th scope="col">S/No</th>
-                        <th>Action</th>
                         <th>Date Created</th>
                         <th>Name</th>
                         <th>Telephone</th>
@@ -41,12 +40,6 @@
                       <ng-container *ngIf="reportHistory && reportHistory.length">
                         <tr *ngFor="let user of reportHistory; let i = index">
                           <td>{{i + 1}}</td>
-                          <td>
-                            <a [routerLink]="['one', user.authid]" role="button"
-                              class="button button--sm text--capital action__btn">
-                              view
-                            </a>
-                          </td>
                           <td>{{user.created_at | date}}</td>
                           <td>{{user.firstname}} {{user.lastname}}</td>
                           <td>{{user.phone_number}}</td>
@@ -57,7 +50,7 @@
                       </ng-container>
                       <ng-container *ngIf="reportHistory && !reportHistory.length">
                         <tr>
-                          <td colspan="8">
+                          <td colspan="7">
                            <p class="p-p-4 text--center text--capital">
                              no reports yet
                             </p>

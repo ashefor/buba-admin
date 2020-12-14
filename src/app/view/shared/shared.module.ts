@@ -7,9 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SidebarModule } from 'primeng/sidebar';
 import { DropdownModule } from 'primeng/dropdown';
-import {PanelModule} from 'primeng/panel';
-import {DialogModule} from 'primeng/dialog';
-import {TabViewModule} from 'primeng/tabview';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
+import { TabViewModule } from 'primeng/tabview';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 
@@ -21,6 +22,7 @@ import {TabViewModule} from 'primeng/tabview';
     ReactiveFormsModule,
     FormsModule,
     PanelModule,
+    InputTextareaModule,
     DropdownModule,
     DialogModule,
     TabViewModule,
@@ -33,6 +35,7 @@ import {TabViewModule} from 'primeng/tabview';
     ButtonModule,
     InputNumberModule,
     PanelModule,
+    InputTextareaModule,
     ReactiveFormsModule,
     TabViewModule,
     DropdownModule,

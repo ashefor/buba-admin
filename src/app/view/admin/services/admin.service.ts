@@ -25,4 +25,9 @@ export class AdminService {
     // tslint:disable-next-line: max-line-length
     return this.http.post(`${environment.bubaApi}/${environment.module}/account/create`, userDetails).pipe(catchError((error) => throwError(error)));
   }
+
+  editSystemUser(userDetails) {
+    // tslint:disable-next-line: max-line-length
+    return this.http.post(`${environment.bubaApi}/${environment.module}/account/edit`, userDetails).pipe(catchError((error) => throwError(error)));
+  }
 }

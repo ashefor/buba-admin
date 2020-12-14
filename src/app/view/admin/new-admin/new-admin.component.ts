@@ -50,7 +50,7 @@ export class NewAdminComponent implements OnInit, OnDestroy {
       email: this.email,
       password: this.password,
       department: this.department.value,
-      permissions: this.permission
+      permission: this.permission
     };
     console.log(user);
     this.loadingBar.start();

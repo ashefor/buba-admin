@@ -103,9 +103,10 @@
                       <thead>
                         <tr>
                           <th scope="col">S/No</th>
-                          <th>Date Funded</th>
-                          <th>Type</th>
-                          <th>Amount</th>
+                          <th>Date Created</th>
+                          <th>Bid Type</th>
+                          <th>Total bids</th>
+                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -113,8 +114,19 @@
                           <tr *ngFor="let fund of bidsHistory; let i = index">
                             <td>{{i + 1}}</td>
                             <td>{{fund.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
-                            <td>{{fund.type}}</td>
-                            <td>{{fund.amount | currency:'₦'}}</td>
+                            <td>{{fund.bid_type === 5 ? 'Lucky Five' : 'Lucky One'}}</td>
+                            <td>{{fund.total_bid}}</td>
+                            <td>
+                              <span *ngIf="fund.status === 0" class="p-tag p-tag-secondary text--capital">
+                                open
+                              </span>
+                              <span *ngIf="fund.status === 1" class="p-tag p-tag-primary text--capital">
+                                processing
+                              </span>
+                              <span *ngIf="fund.status === 2" class="p-tag p-tag-success text--capital">
+                                completed
+                              </span>
+                            </td>
                           </tr>
                         </ng-container>
                         <ng-template #noBids>

@@ -8,13 +8,18 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
+
       {
-        path: 'customers/one/:id',
-        loadChildren: () => import('../users/view-user/view-user.module').then(m => m.ViewUserModule)
+        path: '',
+        redirectTo: 'customers'
       },
       {
         path: 'customers',
         loadChildren: () => import('../users/users/users.module').then(m => m.UsersModule)
+      },
+      {
+        path: 'customers/one/:id',
+        loadChildren: () => import('../users/view-user/view-user.module').then(m => m.ViewUserModule)
       },
       {
         path: 'funding',
@@ -27,6 +32,14 @@ const routes: Routes = [
       {
         path: 'withdrawals',
         loadChildren: () => import('../withdrawals/all-withdrawals/all-withdrawals.module').then(m => m.AllWithdrawalsModule)
+      },
+      {
+        path: 'bids/upload',
+        loadChildren: () => import('../bids/bid-upload/bid-upload.module').then(m => m.BidUploadModule)
+      },
+      {
+        path: 'bids/lists',
+        loadChildren: () => import('../bids/bid-lists/bid-lists.module').then(m => m.BidListsModule)
       },
       {
         path: 'bids/:id',

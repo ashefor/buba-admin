@@ -12,7 +12,9 @@
     
             <input type="text" placeholder="Search" #searchInput pInputText>
           </div>
-        <ng-container>
+        <div class="card">
+          <div class="card__body">
+            <ng-container>
               <div class="p-grid">
                 <div class="p-col">
                   <div class="table__container">
@@ -32,7 +34,7 @@
                               <td>{{i + 1}}</td>
                               <td>
                                   <a [routerLink]="['/system-users/view', user.authid]" role="button"
-                                    class="button button--sm text--capital action__btn">
+                                    class="button button--sm text--capital button--info">
                                     view
                                   </a>
                                 </td>
@@ -45,7 +47,7 @@
                           <tr>
                             <td colspan="5">
                               <p class="p-p-4 text--center text--capital">
-                                no users yet
+                                {{errorMsg}}
                               </p>
                             </td>
                           </tr>
@@ -53,9 +55,21 @@
                       </tbody>
                     </table>
                   </div>
+                  <ng-container >
+                    <div class="p-flex text--right">
+                      <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
+                        previous
+                      </button>
+                      <button class="button p-mx-1 button--secondary text--capital" (click)="goNext()">
+                        next
+                      </button>
+                    </div>
+                  </ng-container>
                 </div>
               </div>
         </ng-container>
+          </div>
+        </div>
       </div>
     </div>
   </div>

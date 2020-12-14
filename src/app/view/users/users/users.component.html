@@ -7,60 +7,75 @@
     </div>
     <div class="pagebody users__body">
       <div class="p-mb-3 p-d-flex p-jc-between">
-        <p-dropdown [options]="pageSizes" (ngModelChange)="changePageSize($event)" [(ngModel)]="pageSize" placeholder="pageSize" optionLabel="size" ></p-dropdown>
+        <p-dropdown [options]="pageSizes" (ngModelChange)="changePageSize($event)" [(ngModel)]="pageSize"
+          placeholder="pageSize" optionLabel="size"></p-dropdown>
 
-       <input type="text" placeholder="Search" #searchInput pInputText> 
-    </div>
-        <ng-container>
-      <div class="p-grid">
-        <div class="p-col">
-            <div class="table__container">
-                <table class="table table__bordered">
-                  <thead class="thead__dark">
-                    <tr>
-                      <th scope="col">S/No</th>
-                      <th>Action</th>
-                      <th>Date Created</th>
-                      <th>Name</th>
-                      <th>Telephone</th>
-                      <th>Email</th>
-                      <th>Balance</th>
-                      <th>Winnings</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <ng-container *ngIf="usersHistory && usersHistory.length">
-                      <tr *ngFor="let user of usersHistory; let i = index">
-                        <td>{{i + 1}}</td>
-                        <td>
-                          <a [routerLink]="['one', user.authid]" role="button"
-                            class="button button--sm text--capital action__btn">
-                            view
-                          </a>
-                        </td>
-                        <td>{{user.created_at | date}}</td>
-                        <td>{{user.firstname}} {{user.lastname}}</td>
-                        <td>{{user.phone_number}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.balance | currency:'₦'}}</td>
-                        <td>{{user.winnings_balance | currency:'₦'}}</td>
-                      </tr>
-                    </ng-container>
-                    <ng-container *ngIf="usersHistory && !usersHistory.length">
+        <input type="text" placeholder="Search" #searchInput pInputText>
+      </div>
+      <div class="card">
+        <div class="card__body">
+          <ng-container>
+            <div class="p-grid">
+              <div class="p-col">
+                <div class="table__container">
+                  <table class="table table__bordered">
+                    <thead class="thead__dark">
                       <tr>
-                        <td colspan="8">
-                         <p class="p-p-4 text--center text--capital">
-                           no users yet
-                          </p>
-                        </td>
-                       </tr>
-                    </ng-container>
-                  </tbody>
-                </table>
+                        <th scope="col">S/No</th>
+                        <th>Action</th>
+                        <th>Date Created</th>
+                        <th>Name</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                        <th>Balance</th>
+                        <th>Winnings</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="usersHistory && usersHistory.length">
+                        <tr *ngFor="let user of usersHistory; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>
+                            <a [routerLink]="['one', user.authid]" role="button"
+                              class="button button--sm text--capital button--info">
+                              view
+                            </a>
+                          </td>
+                          <td>{{user.created_at | date}}</td>
+                          <td>{{user.firstname}} {{user.lastname}}</td>
+                          <td>{{user.phone_number}}</td>
+                          <td>{{user.email}}</td>
+                          <td>{{user.balance | currency:'₦'}}</td>
+                          <td>{{user.winnings_balance | currency:'₦'}}</td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="usersHistory && !usersHistory.length">
+                        <tr>
+                          <td colspan="8">
+                            <p class="p-p-4 text--center text--capital">
+                              {{errorMsg}}
+                            </p>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+                <ng-container>
+                  <div class="p-flex text--right">
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
+                      previous
+                    </button>
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goNext()">
+                      next
+                    </button>
+                  </div>
+                </ng-container>
               </div>
+            </div>
+          </ng-container>
         </div>
       </div>
-        </ng-container>
     </div>
   </div>
 </div>

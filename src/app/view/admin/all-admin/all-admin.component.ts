@@ -18,6 +18,8 @@ export class AllAdminComponent implements OnInit, OnDestroy {
   pageNumber = 1;
   pageSize = { size: '10', value: '10' };
   pageSizes = pageSizes;
+  searchText = '';
+  errorMsg = 'no users yet';
 
   constructor(private service: AdminService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
@@ -61,6 +63,7 @@ export class AllAdminComponent implements OnInit, OnDestroy {
       map((e: any) => e.target.value),
       debounceTime(500),
       distinctUntilChanged()).subscribe((text: any) => {
+        this.searchText = text;
         this.fetchAllSystemUsers(text);
       });
   }
@@ -68,5 +71,46 @@ export class AllAdminComponent implements OnInit, OnDestroy {
   changePageSize(event) {
     this.pageSize = event;
     this.fetchAllSystemUsers();
+  }
+
+  goToAnotherPage() {
+    const pageDetails = {
+      page_size: this.pageSize.value,
+      search_text: this.searchText,
+      page_number: this.pageNumber
+    };
+    this.loadingBar.start();
+    console.log(pageDetails);
+    this.service.fetchSystemUsers(pageDetails).subscribe((data: any) => {
+      this.loadingBar.stop();
+      console.log(data);
+      this.allSystemUsers = data.admin_users;
+      console.log(this.allSystemUsers);
+      if (!this.allSystemUsers.length) {
+        this.errorMsg = 'no more results';
+      }
+    },  (error: HttpErrorResponse) => {
+      console.log(error);
+      this.loadingBar.stop();
+      if (error.status !== 401 && (error.status >= 400 && error.status <= 415)) {
+        this.toastr.error(error.error.message, 'Error');
+      } else if (error.status > 415) {
+        this.toastr.error('An error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  goPrevious() {
+    if (this.pageNumber === 1) {
+      return;
+    } else {
+      this.pageNumber -= 1;
+      this.goToAnotherPage();
+    }
+  }
+
+  goNext() {
+    this.pageNumber += 1;
+    this.goToAnotherPage();
   }
 }

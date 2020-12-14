@@ -13,6 +13,7 @@ import { BidsService } from '../services/bids.service';
 export class OneBidComponent implements OnInit, OnDestroy {
   bidId: any;
   bidDetails: any;
+  bidEntry: any[];
   constructor(private activatedRoute: ActivatedRoute,
               private service: BidsService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
@@ -36,6 +37,7 @@ export class OneBidComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       console.log(data);
       this.bidDetails = data;
+      this.bidEntry = data.last_entry;
       // this.user = data.user;
     }, (error: HttpErrorResponse) => {
       console.log(error);

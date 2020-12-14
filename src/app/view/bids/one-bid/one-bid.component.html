@@ -4,11 +4,46 @@
         <h1 class="pageheader__title text--capital">
           View Bid
         </h1>
+        <span class="pageheader__subtitle">
+            Latest bid submissions/entries
+        </span>
       </div>
       <div class="pagebody bid__body">
         <ng-container *ngIf="bidDetails">
           <div class="p-grid">
-            
+            <div class="p-col">
+                <div class="table__container">
+                    <table class="table table__bordered">
+                      <thead class="thead__dark">
+                        <tr>
+                          <th scope="col">S/No</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Total Bids</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngIf="bidEntry && bidEntry.length">
+                          <tr *ngFor="let user of bidEntry; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{user.firstname}} {{user.lastname}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.total_bid}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="bidEntry && !bidEntry.length">
+                          <tr>
+                            <td colspan="8">
+                             <p class="p-p-4 text--center text--capital">
+                               no entries yet
+                              </p>
+                            </td>
+                           </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
           </div>
         </ng-container>
       </div>

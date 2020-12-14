@@ -9,11 +9,11 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-all-bids',
-  templateUrl: './all-bids.component.html',
-  styleUrls: ['./all-bids.component.scss']
+  selector: 'app-bid-lists',
+  templateUrl: './bid-lists.component.html',
+  styleUrls: ['./bid-lists.component.scss']
 })
-export class AllBidsComponent implements OnInit, OnDestroy {
+export class BidListsComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   bidHistory: any[];
   pageNumber = 1;
@@ -21,17 +21,20 @@ export class AllBidsComponent implements OnInit, OnDestroy {
   pageSizes = pageSizes;
   status: any;
   searchText = '';
-  errorMsg = 'no bids yet';
+  errorMsg = 'no bids';
+  displayModal: boolean;
+  singleBid: any;
+  isEditting: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private service: BidsService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
+    private service: BidsService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((param: Params) => {
       this.status = param.id;
       this.bidHistory = null;
       this.pageSize = { size: '10', value: '10' };
-      this.fetchAllBids();
+      this.fetchBidsLists();
     });
     this.httpSearch();
   }
@@ -39,7 +42,7 @@ export class AllBidsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.loadingBar.stop();
   }
-  fetchAllBids(searchText = '') {
+  fetchBidsLists(searchText = '') {
     const pageDetails = {
       page_size: this.pageSize.value,
       search_text: searchText,
@@ -48,10 +51,10 @@ export class AllBidsComponent implements OnInit, OnDestroy {
     };
     this.loadingBar.start();
     console.log(pageDetails);
-    this.service.fetchBidHistory(pageDetails).subscribe((data: any) => {
+    this.service.fetchBidsLists(pageDetails).subscribe((data: any) => {
       this.loadingBar.stop();
       console.log(data);
-      this.bidHistory = data.bids_history;
+      this.bidHistory = data.bid_list;
       console.log(this.bidHistory);
     }, (error: HttpErrorResponse) => {
       console.log(error);
@@ -72,13 +75,13 @@ export class AllBidsComponent implements OnInit, OnDestroy {
       debounceTime(500),
       distinctUntilChanged()).subscribe((text: any) => {
         this.searchText = text;
-        this.fetchAllBids(text);
+        this.fetchBidsLists(text);
       });
   }
 
   changePageSize(event) {
     this.pageSize = event;
-    this.fetchAllBids();
+    this.fetchBidsLists();
   }
 
   goToAnotherPage() {
@@ -90,10 +93,10 @@ export class AllBidsComponent implements OnInit, OnDestroy {
     };
     this.loadingBar.start();
     console.log(pageDetails);
-    this.service.fetchBidHistory(pageDetails).subscribe((data: any) => {
+    this.service.fetchBidsLists(pageDetails).subscribe((data: any) => {
       this.loadingBar.stop();
       console.log(data);
-      this.bidHistory = data.bids_history;
+      this.bidHistory = data.bid_list;
       console.log(this.bidHistory);
       if (!this.bidHistory.length) {
         this.errorMsg = 'no more results';
@@ -121,5 +124,58 @@ export class AllBidsComponent implements OnInit, OnDestroy {
   goNext() {
     this.pageNumber += 1;
     this.goToAnotherPage();
+  }
+
+  deleteBid(id) {
+    if (confirm('Are you sure you want to delete this?')) {
+      this.loadingBar.start();
+      const bid = {
+        id
+      };
+      this.service.deleteBidsList(bid).subscribe((data: any) => {
+        this.loadingBar.stop();
+        console.log(data);
+        if (data.status === 'success') {
+          location.reload();
+        }
+      }, (error: HttpErrorResponse) => {
+        console.log(error);
+        this.loadingBar.stop();
+        if (error.status !== 401 && (error.status >= 400 && error.status <= 415)) {
+          this.toastr.error(error.error.message, 'Error');
+        } else if (error.status > 415) {
+          this.toastr.error('An error has occured. Please try again later', 'Error');
+        }
+      });
+    }
+  }
+
+  openEditBidModal(bid) {
+    this.singleBid = bid;
+    this.displayModal = true;
+  }
+
+  editBidDetails() {
+    console.log(this.singleBid);
+    this.isEditting = true;
+    this.loadingBar.start();
+    this.service.editBidsList(this.singleBid).subscribe((data: any) => {
+      this.loadingBar.stop();
+      this.isEditting = false;
+      console.log(data);
+      this.displayModal = false;
+      // if (data.status === 'success') {
+      //   location.reload();
+      // }
+    }, (error: HttpErrorResponse) => {
+      console.log(error);
+      this.isEditting = false;
+      this.loadingBar.stop();
+      if (error.status !== 401 && (error.status >= 400 && error.status <= 415)) {
+        this.toastr.error(error.error.message, 'Error');
+      } else if (error.status > 415) {
+        this.toastr.error('An error has occured. Please try again later', 'Error');
+      }
+    });
   }
 }

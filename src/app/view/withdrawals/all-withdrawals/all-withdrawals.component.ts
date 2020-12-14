@@ -18,6 +18,8 @@ export class AllWithdrawalsComponent implements OnInit, OnDestroy {
   pageNumber = 1;
   pageSize = { size: '10', value: '10' };
   pageSizes = pageSizes;
+  searchText = '';
+  errorMsg = 'no withdrawals yet';
 
   constructor(private service: WithdrawalsService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
@@ -64,6 +66,7 @@ export class AllWithdrawalsComponent implements OnInit, OnDestroy {
       map((e: any) => e.target.value),
       debounceTime(500),
       distinctUntilChanged()).subscribe((text: any) => {
+        this.searchText = text;
         this.fetchAllWithdrawals(text);
       });
   }
@@ -71,5 +74,46 @@ export class AllWithdrawalsComponent implements OnInit, OnDestroy {
   changePageSize(event) {
     this.pageSize = event;
     this.fetchAllWithdrawals();
+  }
+
+  goToAnotherPage() {
+    const pageDetails = {
+      page_size: this.pageSize.value,
+      search_text: this.searchText,
+      page_number: this.pageNumber
+    };
+    this.loadingBar.start();
+    console.log(pageDetails);
+    this.service.fetchWithdrawals(pageDetails).subscribe((data: any) => {
+      this.loadingBar.stop();
+      console.log(data);
+      this.withdrawalHistory = data.withdrawals;
+      console.log(this.withdrawalHistory);
+      if (!this.withdrawalHistory.length) {
+        this.errorMsg = 'no more results';
+      }
+    },  (error: HttpErrorResponse) => {
+      console.log(error);
+      this.loadingBar.stop();
+      if (error.status >= 400 && error.status <= 415 && error.status !== 401) {
+        this.toastr.error(error.error.message, 'Error');
+      } else {
+        this.toastr.error('An error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  goPrevious() {
+    if (this.pageNumber === 1) {
+      return;
+    } else {
+      this.pageNumber -= 1;
+      this.goToAnotherPage();
+    }
+  }
+
+  goNext() {
+    this.pageNumber += 1;
+    this.goToAnotherPage();
   }
 }

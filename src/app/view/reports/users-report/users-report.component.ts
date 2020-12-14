@@ -54,4 +54,8 @@ export class UsersReportComponent implements OnInit, OnDestroy {
     });
 
   }
+
+  goToAnotherPage() {
+    
+  }
 }

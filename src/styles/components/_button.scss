@@ -35,6 +35,16 @@
     }
   }
 
+  &--secondary {
+    background: $color-black;
+    color: $color-white;
+
+    &[disabled] {
+      // background-color: lighten($color: $color-primary, $amount: 25);
+      opacity: .65;
+    }
+  }
+
   &--danger {
     background: $color-danger;
     color: $color-white;

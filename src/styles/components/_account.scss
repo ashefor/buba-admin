@@ -29,6 +29,10 @@
       // margin-bottom: 2rem;
       img{
           width: 10rem;
+
+          @media all and (min-width: 768px) {
+            width: 15rem;
+          }
       }
     }
 
