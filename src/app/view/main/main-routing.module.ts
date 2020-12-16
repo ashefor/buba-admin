@@ -11,7 +11,11 @@ const routes: Routes = [
 
       {
         path: '',
-        redirectTo: 'customers'
+        redirectTo: 'dashboard'
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'customers',

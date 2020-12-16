@@ -1,1 +1,152 @@
-<p>dashboard works!</p>
+<div class="users">
+    <div class="users__container">
+      <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+          dashboard
+        </h1>
+      </div>
+      <div class="pagebody users__body">
+        <ng-container *ngIf="dashboard">
+            <div class="p-grid">
+                <div class="p-col-3">
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="dashboard_agents">
+                                <span class="dashboard_agents_text dashboard_agents_title">
+                                    Number of Agents
+                                </span>
+                                <span class="dashboard_agents_text dashboard_agents_subtitle">
+                                    {{dashboard.all_agents}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-col-3">
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="dashboard_agents">
+                                <span class="dashboard_agents_text dashboard_agents_title">
+                                    Number of Users
+                                </span>
+                                <span class="dashboard_agents_text dashboard_agents_subtitle">
+                                    {{dashboard.all_users}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-mt-5 p-col-6">
+                    <span class="pageheader__subtitle text--capital text--medium">
+                       Bids Reports
+                    </span>
+                    <div class="card p-mt-4">
+                        <div class="card__body">
+                            <div class="p-grid">
+                                <div class="table__container">
+                                    <table class="table table__bordered">
+                                      <thead class="thead__dark">
+                                        <tr>
+                                          <th scope="col">Day</th>
+                                          <th>Number of bids</th>
+                                          <th></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <ng-container *ngIf="bidCharts && bidCharts.length">
+                                          <tr *ngFor="let bid of bidCharts; let i = index">
+                                            <td>{{bid.day | customeDate: "MMM DD, YYYY"}}</td>
+                                            <td>{{bid.count}} bids</td>
+                                            <td>
+                                                <ng-container *ngIf="bid.type === 0">
+                                                  <span class="text--danger">
+                                                    {{bid.percentage}}%
+                                                    <i class="pi pi-arrow-down"></i>
+                                                  </span>
+                                                </ng-container>
+                                                <ng-container *ngIf="bid.type === 1">
+                                                  <span class="text--green">
+                                                    {{bid.percentage}}%
+                                                    <i class="pi pi-arrow-up"></i>
+                                                  </span>
+                                                </ng-container>
+                                              </td>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="bidCharts && !bidCharts.length">
+                                          <tr>
+                                            <td colspan="8">
+                                             <p class="p-p-4 text--center text--capital">
+                                               no entries yet
+                                              </p>
+                                            </td>
+                                           </tr>
+                                        </ng-container>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-mt-5 p-col-6">
+                    <span class="pageheader__subtitle text--capital text--medium">
+                       User Reports
+                    </span>
+                    <div class="card p-mt-4">
+                        <div class="card__body">
+                            <div class="p-grid">
+                                <div class="table__container">
+                                    <table class="table table__bordered">
+                                      <thead class="thead__dark">
+                                        <tr>
+                                          <th scope="col">Day</th>
+                                          <th>Number of Users</th>
+                                          <th></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <ng-container *ngIf="userCharts && userCharts.length">
+                                          <tr *ngFor="let user of userCharts; let i = index">
+                                            <td>{{user.day | customeDate: "MMM DD, YYYY"}}</td>
+                                            <td>{{user.count}} users</td>
+                                            <td>
+                                                <ng-container *ngIf="user.type === 0">
+                                                  <span class="text--danger">
+                                                    {{user.percentage}}%
+                                                    <i class="pi pi-arrow-down"></i>
+                                                  </span>
+                                                </ng-container>
+                                                <ng-container *ngIf="user.type === 1">
+                                                  <span class="text--green">
+                                                    {{user.percentage}}%
+                                                    <i class="pi pi-arrow-up"></i>
+                                                  </span>
+                                                </ng-container>
+                                              </td>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="userCharts && !userCharts.length">
+                                          <tr>
+                                            <td colspan="8">
+                                             <p class="p-p-4 text--center text--capital">
+                                               no entries yet
+                                              </p>
+                                            </td>
+                                           </tr>
+                                        </ng-container>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  

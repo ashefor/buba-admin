@@ -41,19 +41,11 @@ export class AuthService {
     await sessionStorage.clear();
   }
 
-  getWalletBalance() {
-    return this.http.get(`${environment.bubaApi}/user/account/details`).pipe(catchError((error) => throwError(error)));
-  }
-
   login(user) {
     return this.http.post(`${environment.bubaApi}/admin/account/login`, user).pipe(catchError((error) => throwError(error)));
   }
 
-  register(newUser) {
-    return this.http.post(`${environment.bubaApi}/user/account/create`, newUser).pipe(catchError((error) => throwError(error)));
-  }
-
-  createPaymentAccount() {
-    return this.http.get(`${environment.bubaApi}/user/account/payment/create`).pipe(catchError((error) => throwError(error)));
+ fetchDashboard() {
+  return this.http.get(`${environment.bubaApi}/dashboard`).pipe(catchError((error) => throwError(error)));
   }
 }
