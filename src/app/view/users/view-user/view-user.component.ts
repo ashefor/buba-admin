@@ -78,7 +78,7 @@ export class ViewUserComponent implements OnInit, OnDestroy {
       if (error.status >= 400 && error.status <= 415 && error.status !== 401) {
         this.toastr.error(error.error.message, 'Error');
       } else {
-        this.toastr.error('An error has occured. Please try again later', 'Error');
+        this.toastr.error(error.error.message? error.error.message : 'An error has occured. Please try again later');
       }
     });
   }
@@ -111,9 +111,9 @@ export class ViewUserComponent implements OnInit, OnDestroy {
       console.log(error);
       this.loadingBar.stop();
       if (error.status >= 400 && error.status <= 415 && error.status !== 401) {
-        this.toastr.error(error.error.message, 'Error');
+        this.toastr.error(error.error.message);
       } else {
-        this.toastr.error('An error has occured. Please try again later', 'Error');
+        this.toastr.error(error.error.message ? error.error.message : 'An error has occured. Please try again later',);
       }
     });
   }
@@ -162,9 +162,9 @@ export class ViewUserComponent implements OnInit, OnDestroy {
       console.log(error);
       this.loadingBar.stop();
       if (error.status >= 400 && error.status <= 415 && error.status !== 401) {
-        this.toastr.error(error.error.message, 'Error');
+        this.toastr.error(error.error.message);
       } else {
-        this.toastr.error('An error has occured. Please try again later', 'Error');
+        this.toastr.error(error.error.message ? error.error.message : 'An error has occured. Please try again later');
       }
     });
   }
@@ -200,9 +200,9 @@ export class ViewUserComponent implements OnInit, OnDestroy {
       console.log(error);
       this.loadingBar.stop();
       if (error.status !== 401 && (error.status >= 400 && error.status <= 415)) {
-        this.toastr.error(error.error.message, 'Error');
+        this.toastr.error(error.error.message);
       } else if (error.status > 415) {
-        this.toastr.error('An error has occured. Please try again later', 'Error');
+        this.toastr.error(error.error.message ? error.error.message : 'An error has occured. Please try again later');
       }
     });
   }

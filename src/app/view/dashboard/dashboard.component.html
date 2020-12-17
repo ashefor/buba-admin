@@ -40,7 +40,7 @@
             <div class="p-grid">
                 <div class="p-mt-5 p-col-6">
                     <span class="pageheader__subtitle text--capital text--medium">
-                       Bids Reports
+                       Revenue Reports
                     </span>
                     <div class="card p-mt-4">
                         <div class="card__body">
@@ -50,7 +50,7 @@
                                       <thead class="thead__dark">
                                         <tr>
                                           <th scope="col">Day</th>
-                                          <th>Number of bids</th>
+                                          <th>Amount</th>
                                           <th></th>
                                         </tr>
                                       </thead>
@@ -58,7 +58,7 @@
                                         <ng-container *ngIf="bidCharts && bidCharts.length">
                                           <tr *ngFor="let bid of bidCharts; let i = index">
                                             <td>{{bid.day | customeDate: "MMM DD, YYYY"}}</td>
-                                            <td>{{bid.count}} bids</td>
+                                            <td>{{bid.count | currency:'₦'}}</td>
                                             <td>
                                                 <ng-container *ngIf="bid.type === 0">
                                                   <span class="text--danger">

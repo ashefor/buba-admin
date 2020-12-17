@@ -12,6 +12,9 @@
             <p-panel header="Customer details" class="w-100" [toggleable]="true">
               <div class="user__details__container">
                 <div class="user__details">
+                  <div class="p-my-2 user__avatar">
+                    <img [src]="'https://api.buba.ng/app/api/uploads/' + user.picture" alt="" srcset="">
+                  </div>
                   <div class="p-mb-3">
                     <button *ngIf="user.status === '0'"
                       class="text--capital button--raised button button--wider button--danger p-mr-2"
