@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       this.loadingBar.stop();
       this.auth.storeToken(user.token);
       this.auth.storeUser(user.user);
-      this.router.navigate(['/customers']);
+      this.router.navigate(['/']);
       console.log(user);
     }, (error: any) => {
       this.loggingIn = false;
