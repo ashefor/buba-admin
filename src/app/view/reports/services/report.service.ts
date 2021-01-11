@@ -24,4 +24,9 @@ export class ReportService {
     // tslint:disable-next-line: max-line-length
     return this.http.post(`${environment.bubaApi}/report/funding`, pageDetails).pipe(catchError((error) => throwError(error)));
   }
+
+  getZeroFundingReport(pageDetails) {
+    // tslint:disable-next-line: max-line-length
+    return this.http.post(`${environment.bubaApi}/report/funding/zero`, pageDetails).pipe(catchError((error) => throwError(error)));
+  }
 }

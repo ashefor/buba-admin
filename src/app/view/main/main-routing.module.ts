@@ -75,6 +75,10 @@ const routes: Routes = [
       {
         path: 'report/funding',
         loadChildren: () => import('../reports/funding-report/funding-report.module').then(m => m.FundingReportModule)
+      },
+      {
+        path: 'report/funding/zero',
+        loadChildren: () => import('../zero-funding/zero-funding.module').then(m => m.ZeroFundingModule)
       }
     ]
   }

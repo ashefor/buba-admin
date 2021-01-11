@@ -27,6 +27,7 @@
                           <th scope="col">S/No</th>
                           <th>Action</th>
                           <th>Product Name</th>
+                          <th>Total Bids Slots</th>
                           <th>Start Date</th>
                           <th>End Date</th>
                         </tr>
@@ -42,6 +43,7 @@
                                   </a>
                                 </td>
                               <td>{{bid.product_name | titlecase}}</td>
+                              <td>{{bid.total_bid_lucky_five}} slots</td>
                               <td>{{bid.start_date | date: 'MMM d, y, h:mm:ss a'}}</td>
                               <td>{{bid.end_date | date: 'MMM d, y, h:mm:ss a'}}</td>
                             </tr>

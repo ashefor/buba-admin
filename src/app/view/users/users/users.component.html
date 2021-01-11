@@ -9,7 +9,6 @@
       <div class="p-mb-3 p-d-flex p-jc-between">
         <p-dropdown [options]="pageSizes" (ngModelChange)="changePageSize($event)" [(ngModel)]="pageSize"
           placeholder="pageSize" optionLabel="size"></p-dropdown>
-
         <input type="text" placeholder="Search" #searchInput pInputText>
       </div>
       <div class="card">
@@ -42,7 +41,7 @@
                             </a>
                           </td>
                           <td>{{user.created_at | date}}</td>
-                          <td>{{user.firstname}} {{user.lastname}}</td>
+                          <td>{{user.firstname | titlecase}} {{user.lastname | titlecase}}</td>
                           <td>{{user.phone_number}}</td>
                           <td>{{user.email}}</td>
                           <td>{{user.balance | currency:'₦'}}</td>

@@ -50,7 +50,7 @@
       <span class="sidenav__item__text text--capital">withdrawals</span>
     </a>
 
-    <a class="accordion sidenav__item" [ngClass]="{'active': reportsChild1RLA.isActive || reportsChild2RLA.isActive}">
+    <a class="accordion sidenav__item" [ngClass]="{'active': reportsChild1RLA.isActive || reportsChild2RLA.isActive || reportsChild3RLA.isActive}">
       <i class="pi pi-file sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">reports</span>
       <i class="pi pi-angle-right iconRight"></i>
@@ -64,9 +64,13 @@
           <i class="pi pi-list sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">activity</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/report/funding']"  routerLinkActive="active" #reportsChild2RLA="routerLinkActive">
+        <a class="sidenav__item" [routerLink]="['/report/funding']" [routerLinkActiveOptions]="{ exact: true }"  routerLinkActive="active" #reportsChild2RLA="routerLinkActive">
           <i class="pi pi-list sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">funding</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/report/funding/zero']"  routerLinkActive="active" #reportsChild3RLA="routerLinkActive">
+          <i class="pi pi-list sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">zero funding</span>
         </a>
       </div>
 

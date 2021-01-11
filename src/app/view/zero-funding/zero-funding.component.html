@@ -1,0 +1,68 @@
+<div class="report">
+    <div class="report__container">
+      <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+          zero funding report
+        </h1>
+      </div>
+      <div class="pagebody report__body">
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 p-md-3">
+                <label class="form__label text--capital">choose  date</label>
+                <input type="date" class="form__input" [(ngModel)]="from_date"> 
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label class="form__label text--capital">end date</label>
+                <input type="date" class="form__input" [(ngModel)]="to_date"> 
+            </div>
+            <div class="p-field p-col-12 p-md-3 p-as-end">
+                
+                <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital" (click)="getReport()">Get report</button> 
+            </div>
+        </div>
+        <ng-container *ngIf="fundingHistory && fundingHistory.length">
+            <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital" (click)="exportAsXLSX()">Export as Excel</button> 
+        </ng-container>
+          <ng-container>
+        <div class="p-grid p-mt-5">
+          <div class="p-col">
+              <div class="table__container">
+                  <table class="table table__bordered">
+                    <thead class="thead__dark">
+                      <tr>
+                        <th scope="col">S/No</th>
+                        <th>Date Created</th>
+                        <th>Name</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="fundingHistory && fundingHistory.length">
+                        <tr *ngFor="let user of fundingHistory; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{user.created_at | date}}</td>
+                          <td>{{user.firstname |titlecase}} {{user.lastname |titlecase}}</td>
+                          <td>{{user.phone_number ? user.phone_number : 'N/A'}}</td>
+                          <td>{{user.email ? (user.email | lowercase): 'N/A'}}</td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="fundingHistory && !fundingHistory.length">
+                        <tr>
+                          <td colspan="7">
+                           <p class="p-p-4 text--center text--capital">
+                             no reports yet
+                            </p>
+                          </td>
+                         </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+          </div>
+        </div>
+          </ng-container>
+      </div>
+    </div>
+  </div>
+  
