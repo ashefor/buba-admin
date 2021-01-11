@@ -1,3 +1,4 @@
+import { LowerCasePipe, TitleCasePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
@@ -15,7 +16,7 @@ export class ZeroFundingComponent implements OnInit {
   from_date: any;
   to_date: any;
   isFetching: boolean;
-  constructor(private service: ReportService, private loadingBar: LoadingBarService, private toastr: ToastrService, private excelservice: ExcelService) { }
+  constructor(private service: ReportService, private loadingBar: LoadingBarService, private toastr: ToastrService, private excelservice: ExcelService, private titleCase: TitleCasePipe, private lowercase: LowerCasePipe) { }
 
   ngOnInit(): void {
   }
@@ -68,11 +69,11 @@ export class ZeroFundingComponent implements OnInit {
 
     data = this.fundingHistory.map(item => {
       return {
-        firstname: item.firstname,
-        lastname: item.lastname,
+        firstname: this.titleCase.transform(item.firstname),
+        lastname: this.titleCase.transform(item.lastname),
         created_at: item.created_at,
         phone_number: item.phone_number,
-        email: item.email,
+        email: this.lowercase.transform(item.email),
       }
     }
     );

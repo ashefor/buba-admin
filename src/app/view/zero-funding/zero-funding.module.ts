@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, LowerCasePipe, TitleCasePipe } from '@angular/common';
 
 import { ZeroFundingRoutingModule } from './zero-funding-routing.module';
 import { ZeroFundingComponent } from './zero-funding.component';
@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ZeroFundingRoutingModule
-  ]
+  ],
+  providers: [LowerCasePipe, TitleCasePipe]
 })
 export class ZeroFundingModule { }
