@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   bidCharts: any;
   dashboard: any;
   userCharts: any;
+  gameCharts: any;
 
   constructor(private auth: AuthService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit {
         this.dashboard =  data;
         this.bidCharts = data.bid_chart;
         this.userCharts = data.users_chart;
+        this.gameCharts = data.game_chart;
       }
     }, (error: HttpErrorResponse) => {
       console.log(error);

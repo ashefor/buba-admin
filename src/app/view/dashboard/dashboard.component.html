@@ -38,19 +38,20 @@
                 </div>
             </div>
             <div class="p-grid">
-                <div class="p-mt-5 p-col-6">
+                <div class="p-mt-5 p-col-7">
                     <span class="pageheader__subtitle text--capital text--medium">
                        Revenue Reports
                     </span>
                     <div class="card p-mt-4">
                         <div class="card__body">
-                            <div class="p-grid">
-                                <div class="table__container">
+                            <div class="p-grid p-nogutter">
+                                <div class="p-col-7">
+                                  <div class="table__container">
                                     <table class="table table__bordered">
                                       <thead class="thead__dark">
                                         <tr>
                                           <th scope="col">Day</th>
-                                          <th>Amount</th>
+                                          <th>Bid</th>
                                           <th></th>
                                         </tr>
                                       </thead>
@@ -58,7 +59,7 @@
                                         <ng-container *ngIf="bidCharts && bidCharts.length">
                                           <tr *ngFor="let bid of bidCharts; let i = index">
                                             <td>{{bid.day | customeDate: "MMM DD, YYYY"}}</td>
-                                            <td>{{bid.count | currency:'₦'}}</td>
+                                            <td>{{(bid.count ? bid.count : 0) | currency:'₦'}}</td>
                                             <td>
                                                 <ng-container *ngIf="bid.type === 0">
                                                   <span class="text--danger">
@@ -87,11 +88,54 @@
                                       </tbody>
                                     </table>
                                   </div>
+                                </div>
+                                <div class="p-col-5">
+                                  <div class="table__container">
+                                    <table class="table table__bordered">
+                                      <thead class="thead__dark">
+                                        <tr>
+                                          <th>Game</th>
+                                          <th></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <ng-container *ngIf="gameCharts && gameCharts.length">
+                                          <tr *ngFor="let game of gameCharts; let i = index">
+                                            <td>{{(game.count ? game.count  : 0)| currency:'₦'}}</td>
+                                            <td>
+                                                <ng-container *ngIf="game.type === 0">
+                                                  <span class="text--danger">
+                                                    {{game.percentage}}%
+                                                    <i class="pi pi-arrow-down"></i>
+                                                  </span>
+                                                </ng-container>
+                                                <ng-container *ngIf="game.type === 1">
+                                                  <span class="text--green">
+                                                    {{game.percentage}}%
+                                                    <i class="pi pi-arrow-up"></i>
+                                                  </span>
+                                                </ng-container>
+                                              </td>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="gameCharts && !gameCharts.length">
+                                          <tr>
+                                            <td colspan="8">
+                                             <p class="p-p-4 text--center text--capital">
+                                               no entries yet
+                                              </p>
+                                            </td>
+                                           </tr>
+                                        </ng-container>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                         </div>
                     </div>
                 </div>
-                <div class="p-mt-5 p-col-6">
+                <div class="p-mt-5 p-col-5">
                     <span class="pageheader__subtitle text--capital text--medium">
                        User Reports
                     </span>
@@ -111,7 +155,7 @@
                                         <ng-container *ngIf="userCharts && userCharts.length">
                                           <tr *ngFor="let user of userCharts; let i = index">
                                             <td>{{user.day | customeDate: "MMM DD, YYYY"}}</td>
-                                            <td>{{user.count}} users</td>
+                                            <td>{{(user.count ? user.count : 0)}} users</td>
                                             <td>
                                                 <ng-container *ngIf="user.type === 0">
                                                   <span class="text--danger">
