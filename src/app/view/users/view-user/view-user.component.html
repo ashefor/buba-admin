@@ -94,14 +94,14 @@
                         class="user__details__item__text user__details__item__subtitle">{{user.payment_bank_name}}</span>
                     </div>
                     <div class="user__details__item">
-                      <span class="user__details__item__text user__details__item__title">payment account name</span>
-                      <span
-                        class="user__details__item__text user__details__item__subtitle">{{user.payment_account_name}}</span>
-                    </div>
-                    <div class="user__details__item">
                       <span class="user__details__item__text user__details__item__title">payment account number</span>
                       <span
                         class="user__details__item__text user__details__item__subtitle">{{user.payment_account_number}}</span>
+                    </div>
+                    <div class="user__details__item">
+                      <span class="user__details__item__text user__details__item__title">total wins</span>
+                      <span
+                        class="user__details__item__text user__details__item__subtitle">{{userDetails.total_wins | currency:'₦'}}</span>
                     </div>
                   </div>
                   <div class="user__details__row">

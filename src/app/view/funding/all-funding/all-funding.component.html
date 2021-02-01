@@ -23,6 +23,7 @@
                       <tr>
                         <th scope="col">S/No</th>
                         <th>Date Funded</th>
+                        <th>Date Created </th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Amount</th>
@@ -32,7 +33,8 @@
                       <ng-container *ngIf="fundingHistory && fundingHistory.length">
                         <tr *ngFor="let fund of fundingHistory; let i = index">
                           <td>{{i + 1}}</td>
-                          <td>{{fund.created_at | date: 'MMM d, y, h:mm:ss a'}}</td>
+                          <td>{{fund.created_at | date: 'medium'}}</td>
+                          <td>{{fund.user_created_at | date : 'mediumDate'}}</td>
                           <td>{{fund.firstname}} {{fund.lastname}}</td>
                           <td>{{fund.email}}</td>
                           <td>{{fund.amount | currency:'₦'}}</td>
