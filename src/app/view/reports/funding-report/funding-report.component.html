@@ -1,69 +1,72 @@
 <div class="report">
-    <div class="report__container">
-      <div class="pageheader">
-        <h1 class="pageheader__title text--capital">
-          funding report
-        </h1>
-      </div>
-      <div class="pagebody report__body">
-        <div class="p-grid p-fluid">
-            <div class="p-field p-col-12 p-md-3">
-                <label class="form__label text--capital">choose  date</label>
-                <input type="date" class="form__input" [(ngModel)]="startDate"> 
-            </div>
-            <!-- <div class="p-field p-col-12 p-md-3">
+  <div class="report__container">
+    <div class="pageheader">
+      <h1 class="pageheader__title text--capital">
+        funding report
+      </h1>
+    </div>
+    <div class="pagebody report__body">
+      <div class="p-grid p-fluid">
+        <div class="p-field p-col-12 p-md-3">
+          <label class="form__label text--capital">choose date</label>
+          <input type="date" class="form__input" [(ngModel)]="startDate">
+        </div>
+        <!-- <div class="p-field p-col-12 p-md-3">
                 <label class="form__label text--capital">end date</label>
                 <input type="date" class="form__input" [(ngModel)]="endDate"> 
             </div> -->
-            <div class="p-field p-col-12 p-md-3 p-as-end">
-                
-                <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital" (click)="getReport()">Get report</button> 
-            </div>
+        <div class="p-field p-col-12 p-md-3 p-as-end">
+
+          <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital"
+            (click)="getReport()">Get report</button>
         </div>
-          <ng-container>
+      </div>
+      <ng-container *ngIf="reportHistory && reportHistory.length">
+        <button [disabled]="isFetching" class="p-mb-2 button button--secondary button--raised button--wider text--capital" (click)="exportAsXLSX()">Export as Excel</button> 
+    </ng-container>
+      <ng-container>
         <div class="p-grid">
           <div class="p-col">
-              <div class="table__container">
-                  <table class="table table__bordered">
-                    <thead class="thead__dark">
-                      <tr>
-                        <th scope="col">S/No</th>
-                        <th>Date Created</th>
-                        <th>Name</th>
-                        <th>Telephone</th>
-                        <th>Email</th>
-                        <th>Balance</th>
-                        <th>Winnings</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <ng-container *ngIf="reportHistory && reportHistory.length">
-                        <tr *ngFor="let user of reportHistory; let i = index">
-                          <td>{{i + 1}}</td>
-                          <td>{{user.created_at | date}}</td>
-                          <td>{{user.firstname}} {{user.lastname}}</td>
-                          <td>{{user.phone_number}}</td>
-                          <td>{{user.email}}</td>
-                          <td>{{user.balance | currency:'₦'}}</td>
-                          <td>{{user.winnings_balance | currency:'₦'}}</td>
-                        </tr>
-                      </ng-container>
-                      <ng-container *ngIf="reportHistory && !reportHistory.length">
-                        <tr>
-                          <td colspan="7">
-                           <p class="p-p-4 text--center text--capital">
-                             no reports yet
-                            </p>
-                          </td>
-                         </tr>
-                      </ng-container>
-                    </tbody>
-                  </table>
-                </div>
+            <div class="table__container">
+              <table class="table table__bordered">
+                <thead class="thead__dark">
+                  <tr>
+                    <th scope="col">S/No</th>
+                    <th>Date Created</th>
+                    <th>Name</th>
+                    <th>Transaction Date</th>
+                    <th>Type</th>
+                    <th>Email</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="reportHistory && reportHistory.length">
+                    <tr *ngFor="let user of reportHistory; let i = index">
+                      <td>{{i + 1}}</td>
+                      <td>{{user.user_created_at | date}}</td>
+                      <td>{{user.firstname}} {{user.lastname}}</td>
+                      <td>{{user.funding_created_at | date}}</td>
+                      <td>{{user.type}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.amount | currency:'₦'}}</td>
+                    </tr>
+                  </ng-container>
+                  <ng-container *ngIf="reportHistory && !reportHistory.length">
+                    <tr>
+                      <td colspan="7">
+                        <p class="p-p-4 text--center text--capital">
+                          no reports yet
+                        </p>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-          </ng-container>
-      </div>
+      </ng-container>
     </div>
   </div>
-  
+</div>

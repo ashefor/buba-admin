@@ -64,7 +64,8 @@
           <i class="pi pi-list sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">activity</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/report/funding']" [routerLinkActiveOptions]="{ exact: true }"  routerLinkActive="active" #reportsChild2RLA="routerLinkActive">
+        <a class="sidenav__item" [routerLink]="['/report/funding']" 
+        routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"  #reportsChild2RLA="routerLinkActive">
           <i class="pi pi-list sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">funding</span>
         </a>
