@@ -73,13 +73,17 @@ const routes: Routes = [
         loadChildren: () => import('../reports/activity-report/activity-report.module').then(m => m.ActivityReportModule)
       },
       {
+        path: 'report/revenue',
+        loadChildren: () => import('../reports/revenue-reports/revenue-reports.module').then(m => m.RevenueReportsModule)
+      },
+      {
         path: 'report/funding',
         loadChildren: () => import('../reports/funding-report/funding-report.module').then(m => m.FundingReportModule)
       },
       {
         path: 'report/funding/zero',
         loadChildren: () => import('../zero-funding/zero-funding.module').then(m => m.ZeroFundingModule)
-      }
+      },
     ]
   }
 ];

@@ -13,9 +13,12 @@ import { ReportService } from '../reports/services/report.service';
 })
 export class ZeroFundingComponent implements OnInit {
   fundingHistory: any[];
+  reportFundedHistory: any[];
   from_date: any;
   to_date: any;
   isFetching: boolean;
+  reports: any;
+  allReports: any[][];
   constructor(private service: ReportService, private loadingBar: LoadingBarService, private toastr: ToastrService, private excelservice: ExcelService, private titleCase: TitleCasePipe, private lowercase: LowerCasePipe) { }
 
   ngOnInit(): void {
@@ -38,10 +41,13 @@ export class ZeroFundingComponent implements OnInit {
     this.isFetching = true;
     this.service.getZeroFundingReport(dataObj).subscribe((data: any) => {
       console.log(data);
+      this.reports = data;
       this.loadingBar.stop();
       this.isFetching = false;
       if (data.status === 'success') {
         this.fundingHistory = data.report;
+        this.reportFundedHistory = data.report_funded;
+        this.allReports = [this.fundingHistory, this.reportFundedHistory];
       } else {
         this.toastr.error(data.message);
       }
@@ -57,26 +63,26 @@ export class ZeroFundingComponent implements OnInit {
     });
   }
 
-  exportAsXLSX() {
-    let data: any = [];
-    let header: any = [
-      { header: "First Name", key: 'firstname', width: 20 },
-      { header: 'Last Name', key: 'lastname', width: 20 },
-      { header: 'Date Created', key: 'created_at', width: 20 },
-      { header: 'Phone Number', key: 'phone_number', width: 20 },
-      { header: 'Email', key: 'email', width: 20 },
-    ];
 
-    data = this.fundingHistory.map(item => {
-      return {
-        firstname: this.titleCase.transform(item.firstname),
-        lastname: this.titleCase.transform(item.lastname),
-        created_at: item.created_at,
-        phone_number: item.phone_number,
-        email: this.lowercase.transform(item.email),
-      }
-    }
-    );
-    this.excelservice.generateExcel(header, data, 'Zero Funding Report');
+
+  exportAsXLSX() {
+    const headers: any = [
+      [
+        { header: "First Name", key: 'firstname', width: 20 },
+        { header: 'Last Name', key: 'lastname', width: 20 },
+        { header: 'Date Created', key: 'created_at', width: 20 },
+        { header: 'Phone Number', key: 'phone_number', width: 20 },
+        { header: 'Email', key: 'email', width: 20 },
+      ],
+      [
+        { header: "First Name", key: 'firstname', width: 20 },
+        { header: 'Last Name', key: 'lastname', width: 20 },
+        { header: 'Date Created', key: 'created_at', width: 20 },
+        { header: 'Phone Number', key: 'phone_number', width: 20 },
+        { header: 'Email', key: 'email', width: 20 },
+      ]
+    ];
+    this.excelservice.generateMultipleExcel(headers, this.allReports,
+      ['Report One', 'Report Two'], 'Zero Funding Report');
   }
 }

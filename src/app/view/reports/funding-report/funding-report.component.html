@@ -51,6 +51,16 @@
                       <td>{{user.email}}</td>
                       <td>{{user.amount | currency:'₦'}}</td>
                     </tr>
+                    <tr>
+                      <td colspan="6">
+                        <strong>Total</strong>
+                      </td>
+                      <td>
+                        <strong>
+                        {{(sumTotal ? sumTotal: 0) | currency:'₦'}}
+                      </strong>
+                    </td>
+                    </tr>
                   </ng-container>
                   <ng-container *ngIf="reportHistory && !reportHistory.length">
                     <tr>

@@ -11,7 +11,7 @@ import { TopnavComponent } from './components/topnav/topnav.component';
   declarations: [MainComponent, SidenavComponent, TopnavComponent],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
   ]
 })
 export class MainModule { }

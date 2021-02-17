@@ -14,6 +14,7 @@ export class FundingReportComponent implements OnInit, OnDestroy {
   reportHistory: any[];
   startDate: any;
   isFetching: boolean;
+  sumTotal: any;
   constructor(private service: ReportService, private loadingBar: LoadingBarService, private toastr: ToastrService,private excelservice: ExcelService, private titleCase: TitleCasePipe, private lowercase: LowerCasePipe, private datePipe: DatePipe, private currencyPipe: CurrencyPipe) { }
 
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class FundingReportComponent implements OnInit, OnDestroy {
       this.isFetching = false;
       if (data.status === 'success') {
         this.reportHistory = data.report;
+        this.getSumTotal(data.report);
       } else {
         this.toastr.error(data.message);
       }
@@ -79,5 +81,9 @@ export class FundingReportComponent implements OnInit, OnDestroy {
     }
     );
     this.excelservice.generateExcel(header, data, 'Funding Report');
+  }
+
+  getSumTotal(data: any[]) {
+   return this.sumTotal = data.reduce((acc, {amount}) => acc + parseFloat(amount), 0);
   }
 }

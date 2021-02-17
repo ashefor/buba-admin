@@ -4,6 +4,7 @@ import { CommonModule, LowerCasePipe, TitleCasePipe } from '@angular/common';
 import { ZeroFundingRoutingModule } from './zero-funding-routing.module';
 import { ZeroFundingComponent } from './zero-funding.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
     ZeroFundingRoutingModule
   ],
   providers: [LowerCasePipe, TitleCasePipe]

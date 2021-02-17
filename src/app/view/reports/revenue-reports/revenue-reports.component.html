@@ -1,0 +1,228 @@
+<div class="report">
+  <div class="report__container">
+    <div class="pageheader">
+      <h1 class="pageheader__title text--capital">
+        revenue report
+      </h1>
+    </div>
+    <div class="pagebody report__body">
+      <div class="p-grid p-fluid">
+        <div class="p-field p-col-12 p-md-3">
+          <label class="form__label text--capital">choose date</label>
+          <input type="month" class="form__input" [(ngModel)]="startDate">
+        </div>
+        <!-- <div class="p-field p-col-12 p-md-3">
+                  <label class="form__label text--capital">end date</label>
+                  <input type="date" class="form__input" [(ngModel)]="endDate"> 
+              </div> -->
+        <div class="p-field p-col-12 p-md-3 p-as-end">
+
+          <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital"
+            (click)="getReport()">Get report</button>
+        </div>
+      </div>
+
+      <ng-container *ngIf="(bidReports && bidReports.length) || (dailySpecialReports && dailySpecialReports.length) || (quickPlayReports && quickPlayReports.length)">
+        <button [disabled]="isFetching" class="p-mb-2 button button--secondary button--raised button--wider text--capital" (click)="exportAsXLSX()">Export as Excel</button> 
+      </ng-container>
+      <ng-container *ngIf="reportHistory">
+        <div class="p-grid">
+          <div class="p-col">
+            <p-tabView styleClass="revenue-reports">
+                <p-tabPanel header="Summary">
+                    <div class="p-grid">
+                      <div class="p-col-6 p-mx-auto">
+                       <div style="padding: 25px 0px">
+                        <div class="table__container">
+                          <table class="table table__bordered">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <span>
+                                  Total Revenue
+                                </span>
+                              </td>
+                              <td>
+                                <strong>
+                                  {{getAllTotalSummmary().allTotalRevenue | currency:'₦'}}
+                                </strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span>
+                                  Total Actual Revenue
+                                </span>
+                              </td>
+                              <td>
+                                <strong>
+                                  {{getAllTotalSummmary().allActualRevenue | currency:'₦'}}
+                                </strong>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                       </div>
+                      </div>
+                    </div>
+                </p-tabPanel>
+              <p-tabPanel header="Bid Reports">
+                <div class="table__container">
+                  <table class="table table__bordered">
+                    <thead class="thead__dark">
+                      <tr>
+                        <th scope="col">S/No</th>
+                        <th>Date Completed</th>
+                        <th>Product Name</th>
+                        <th>Total Bids</th>
+                        <th>Actual Revenue</th>
+                        <th>Total Revenue</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="bidReports && bidReports.length">
+                        <tr *ngFor="let bid of bidReports; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{bid.date_completed | date}}</td>
+                          <td>{{bid.product_name}}</td>
+                          <td>{{bid.total_bids}}</td>
+                          <td>{{bid.actual_revenue | currency:'₦'}}</td>
+                          <td>{{bid.total_revenue | currency:'₦'}}</td>
+                        </tr>
+                        <tr>
+                          <td colspan="4">
+                            <strong>Total</strong>
+                          </td>
+                          <td>
+                            <strong>
+                                {{getSumTotal(bidReports).totalActualRevenue| currency:'₦'}}
+                            </strong>
+                          </td>
+                          <td>
+                            <strong>
+                                {{getSumTotal(bidReports).totalRevenue  | currency:'₦'}}
+                            </strong>
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="bidReports && !bidReports.length">
+                        <tr>
+                          <td colspan="6">
+                            <p class="p-p-4 text--center text--capital">
+                              no reports yet
+                            </p>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Daily Special Reports">
+                <div class="table__container">
+                  <table class="table table__bordered">
+                    <thead class="thead__dark">
+                      <tr>
+                        <th scope="col">S/No</th>
+                        <th>Date Completed</th>
+                        <th>Amount Won</th>
+                        <th>Actual Revenue</th>
+                        <th>Total Revenue</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="dailySpecialReports && dailySpecialReports.length">
+                        <tr *ngFor="let daily of dailySpecialReports; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{daily.date_completed | date}}</td>
+                          <td>{{daily.won | currency:'₦'}}</td>
+                          <td>{{daily.actual_revenue | currency:'₦'}}</td>
+                          <td>{{daily.total_revenue | currency:'₦'}}</td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">
+                            <strong>Total</strong>
+                          </td>
+                          <td>
+                            <strong>
+                              {{getSumTotal(dailySpecialReports).totalActualRevenue | currency:'₦'}}
+                            </strong>
+                          </td>
+                          <td>
+                            <strong>
+                              {{getSumTotal(dailySpecialReports).totalRevenue | currency:'₦'}}
+                            </strong>
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="dailySpecialReports && !dailySpecialReports.length">
+                        <tr>
+                          <td colspan="5">
+                            <p class="p-p-4 text--center text--capital">
+                              no reports yet
+                            </p>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Quickplay Reports">
+                <div class="table__container">
+                  <table class="table table__bordered">
+                    <thead class="thead__dark">
+                      <tr>
+                        <th scope="col">S/No</th>
+                        <th>Date Completed</th>
+                        <th>Amount Won</th>
+                        <th>Actual Revenue</th>
+                        <th>Total Revenue</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="quickPlayReports && quickPlayReports.length">
+                        <tr *ngFor="let quickplay of quickPlayReports; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{quickplay.date_completed | date}}</td>
+                          <td>{{quickplay.won | currency:'₦'}}</td>
+                          <td>{{quickplay.actual_revenue | currency:'₦'}}</td>
+                          <td>{{quickplay.total_revenue | currency:'₦'}}</td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">
+                            <strong>Total</strong>
+                          </td>
+                          <td>
+                            <strong>
+                              {{getSumTotal(quickPlayReports).totalActualRevenue | currency:'₦'}}
+                            </strong>
+                          </td>
+                          <td>
+                            <strong>
+                              {{getSumTotal(quickPlayReports).totalRevenue | currency:'₦'}}
+                            </strong>
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="quickPlayReports && !quickPlayReports.length">
+                        <tr>
+                          <td colspan="5">
+                            <p class="p-p-4 text--center text--capital">
+                              no reports yet
+                            </p>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

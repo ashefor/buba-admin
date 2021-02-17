@@ -19,13 +19,15 @@
                 <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital" (click)="getReport()">Get report</button> 
             </div>
         </div>
-        <ng-container *ngIf="fundingHistory && fundingHistory.length">
+        <ng-container *ngIf="(fundingHistory && fundingHistory.length) || (reportFundedHistory && reportFundedHistory.length)">
             <button [disabled]="isFetching" class="button button--secondary button--raised button--wider text--capital" (click)="exportAsXLSX()">Export as Excel</button> 
         </ng-container>
           <ng-container>
         <div class="p-grid p-mt-5">
           <div class="p-col">
-              <div class="table__container">
+            <p-tabView styleClass="funding-reports">
+              <p-tabPanel header="Zero Funding">
+                <div class="table__container">
                   <table class="table table__bordered">
                     <thead class="thead__dark">
                       <tr>
@@ -58,6 +60,43 @@
                     </tbody>
                   </table>
                 </div>
+              </p-tabPanel>
+              <p-tabPanel header="Funding Report">
+                <div class="table__container">
+                  <table class="table table__bordered">
+                    <thead class="thead__dark">
+                      <tr>
+                        <th scope="col">S/No</th>
+                        <th>Date Created</th>
+                        <th>Name</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="reportFundedHistory && reportFundedHistory.length">
+                        <tr *ngFor="let item of reportFundedHistory; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{item.created_at | date}}</td>
+                          <td>{{item.firstname |titlecase}} {{item.lastname |titlecase}}</td>
+                          <td>{{item.phone_number ? item.phone_number : 'N/A'}}</td>
+                          <td>{{item.email ? (item.email | lowercase): 'N/A'}}</td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="reportFundedHistory && !reportFundedHistory.length">
+                        <tr>
+                          <td colspan="7">
+                           <p class="p-p-4 text--center text--capital">
+                             no reports yet
+                            </p>
+                          </td>
+                         </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </p-tabPanel>
+            </p-tabView>
           </div>
         </div>
           </ng-container>
